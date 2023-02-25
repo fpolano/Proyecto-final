@@ -1,0 +1,34 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                
+                    <h2> Busqueda de ordenes de trabajo </h2>    
+
+                <form action="/AppSTF/resultadorden/" method="GET">
+                    <p>Cliente: <input type="text" name="cliente" id="Cliente"></p>
+                    <p>Número de orden: <input type="number" name="numero" id="Número de orden"></p>
+                    <p><input type="submit" value="Buscar"></p>
+                </form>
+                
+                {% if ordCliente %}
+                    <h2>Ordenes encontradas:</h2>
+                    {% for orden in ordCliente %}
+                        <p>Orden N°: {{orden.id}} Fecha ingreso: {{orden.fechaIngreso}} Estado: {{orden.estado}}</p>
+                    {% endfor %}
+                {% elif respuesta %}
+                    <h2>{{respuesta}}</h2>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

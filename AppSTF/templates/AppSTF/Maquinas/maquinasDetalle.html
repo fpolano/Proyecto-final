@@ -1,0 +1,34 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    {% if datos %}
+                        {% for m in datos %}
+                            <h2> {{m.nombre}} </h2>
+                            <p> Tipo: {{m.tipo}}</p> 
+                            <p> Marca: {{dm.marca}}</p> 
+                            <p> Modelo: {{dm.modelo}}</p> 
+                            <p> Descripción:</p> 
+                                <p>{{dm.desc}}</p> 
+                            <p> Precio: {{m.precio}}</p> 
+                            <p> Stock: {{m.stock}}</p>                        
+                        {% endfor %}
+                        <p>
+                            <button>
+                                <a href="{% url 'Maquinas lista' %}">Volver</a>
+                            </button>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

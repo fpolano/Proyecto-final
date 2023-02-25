@@ -1,0 +1,74 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+
+                    <h2> Equipos a la venta </h2>
+
+                    <a href="{% url 'Maquinas alta' %}">Agregar nueva máquina</a>
+                    
+                    <table class="table" id="ListaMaquinas">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if datos %}
+                                {% for maquina in datos %}
+                                    <tr>
+                                        <td>{{maquina.tipo}}</td>
+                                        <td>{{maquina.nombre}}</td>
+                                        <td>{{maquina.marca}}</td>
+                                        <td>{{maquina.modelo}}</td>
+                                        <td>{{maquina.precio}}</td>
+                                        <td>{{maquina.stock}}</td>
+                                        <td>
+                                            <button>
+                                                <a href="{% url 'Maquinas detalle' maquina.id %}">Detalles</a>
+                                            </button>
+                                            <button>
+                                                <a href="{% url 'Maquinas modificacion' maquina.id %}">Editar</a>
+                                            </button>
+                                            <button>
+                                                <a href="{% url 'Maquinas borrar' maquina.id %}">Eliminar</a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}  
+                                <tr><td>No hay maquinas disponibles</td></tr>
+                            {% endif %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
