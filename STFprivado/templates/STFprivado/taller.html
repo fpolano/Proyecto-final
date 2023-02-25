@@ -1,0 +1,30 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-10 mx-auto">
+                <div class="bg-faded rounded p-5">
+                    <h2 class="section-heading mb-4">
+                        <span class="section-heading-lower">Taller</span>
+                    </h2>
+                    <h2 class="section-heading mb-4">
+                        <span class="section-heading-upper">Clientes</span>
+                    </h2>
+                    <h2 class="section-heading mb-4">
+                        <span class="section-heading-upper">Ordenes de reparación</span>
+                    </h2>    
+                    <h2 class="section-heading mb-4">
+                        <a href="{% url 'Editar Usuario' %}"> <span class="section-heading-upper">Editar perfil de usuario</span> </a>
+                    </h2>    
+                                                         
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

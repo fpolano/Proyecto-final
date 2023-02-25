@@ -12,18 +12,27 @@
                         {% for m in datos %}
                             <h2> {{m.nombre}} </h2>
                             <p> Tipo: {{m.tipo}}</p> 
-                            <p> Marca: {{dm.marca}}</p> 
-                            <p> Modelo: {{dm.modelo}}</p> 
+                            <p> Marca: {{m.marca}}</p> 
+                            <p> Modelo: {{m.modelo}}</p> 
                             <p> Descripción:</p> 
-                                <p>{{dm.desc}}</p> 
+                                <p>{{m.desc}}</p> 
                             <p> Precio: {{m.precio}}</p> 
-                            <p> Stock: {{m.stock}}</p>                        
-                        {% endfor %}
-                        <p>
+                            <p> Stock: {{m.stock}}</p>                  
+                            <img max-width:30%; src="{{m.foto.url}}" alt="Imagen no disponible">
+                            <p>
                             <button>
                                 <a href="{% url 'Maquinas lista' %}">Volver</a>
                             </button>
-                        </p>
+                            {% if user.is_authenticated %}
+                                <button>
+                                    <a href="{% url 'Maquinas modificacion' m.id %}">Editar</a>
+                                </button>
+                                <button>
+                                    <a href="{% url 'Maquinas borrar' m.id %}">Eliminar</a>
+                                </button>
+                                </p>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>

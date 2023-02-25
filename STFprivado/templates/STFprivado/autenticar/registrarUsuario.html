@@ -1,0 +1,22 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    <h2> Nuevo usuario</h2>
+                    <form action="" method="POST">{% csrf_token %}
+                        {{form.as_p}}                  
+                        <button type="submit">Registrarse</button>                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

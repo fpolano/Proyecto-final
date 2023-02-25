@@ -39,12 +39,14 @@
                                             <button>
                                                 <a href="{% url 'Maquinas detalle' maquina.id %}">Detalles</a>
                                             </button>
+                                            {% if user.is_authenticated %}
                                             <button>
                                                 <a href="{% url 'Maquinas modificacion' maquina.id %}">Editar</a>
                                             </button>
                                             <button>
                                                 <a href="{% url 'Maquinas borrar' maquina.id %}">Eliminar</a>
                                             </button>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}

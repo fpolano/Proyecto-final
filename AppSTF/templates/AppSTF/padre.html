@@ -36,6 +36,12 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'Repuestos alta' %}">Repuestos</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'Manuales alta' %}">Manuales</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'Buscar' %}">Consultar reparación</a></li>
+                        {% if not user.is_authenticated %}
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'Ingresar' %}">Ingresar taller</a></li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'Taller' %}">Bienvenido al taller {{user.username}}</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

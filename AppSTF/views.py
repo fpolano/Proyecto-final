@@ -27,6 +27,7 @@ def maquinasLista(request):
 
 def maquinasDetalle(request,maquinaId):
     maquina = Maquinas.objects.filter(id=maquinaId)
+    print(maquina)
     return render(request, "AppSTF/Maquinas/maquinasDetalle.html",{'datos':maquina})
 
 @login_required
