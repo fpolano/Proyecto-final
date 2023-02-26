@@ -12,15 +12,17 @@
                         <span class="section-heading-lower">Taller</span>
                     </h2>
                     <h2 class="section-heading mb-4">
-                        <span class="section-heading-upper">Clientes</span>
+                        <a href="{% url 'Clientes lista' %}"> <span class="section-heading-upper">Clientes</span> </a>
                     </h2>
                     <h2 class="section-heading mb-4">
-                        <span class="section-heading-upper">Ordenes de reparación</span>
+                        <a href="{% url 'Reparaciones lista' %}"> <span class="section-heading-upper">Ordenes de reparación</span> </a>
                     </h2>    
                     <h2 class="section-heading mb-4">
                         <a href="{% url 'Editar Usuario' %}"> <span class="section-heading-upper">Editar perfil de usuario</span> </a>
                     </h2>    
-                                                         
+                    <h2 class="section-heading mb-4">
+                        <a href="{% url 'Salir' %}"> <span class="section-heading-upper">Salir</span> </a>
+                    </h2>                                                        
                 </div>
             </div>
         </div>

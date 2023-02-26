@@ -1,0 +1,40 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    {% if datos %}
+                        {% for m in datos %}
+                            <h2> {{m.nombre}} </h2>
+                            <p> Marca: {{m.marca}}</p> 
+                            <p> Modelo: {{m.modelo}}</p> 
+                            <p> Precio: {{m.precio}}</p> 
+                            <p> Stock: {{m.stock}}</p>                  
+                            <img max-width:30%; src="{{m.foto.url}}" alt="Imagen no disponible">
+                            <p>
+                            <button>
+                                <a href="{% url 'Repuestos lista' %}">Volver</a>
+                            </button>
+                            {% if user.is_authenticated %}
+                                <button>
+                                    <a href="{% url 'Repuestos modificacion' m.id %}">Editar</a>
+                                </button>
+                                <button>
+                                    <a href="{% url 'Repuestos borrar' m.id %}">Eliminar</a>
+                                </button>
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

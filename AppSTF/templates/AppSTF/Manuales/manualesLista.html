@@ -1,0 +1,67 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+
+                    <h2> Biblioteca de manuales </h2>
+
+                    <a href="{% url 'Manuales alta' %}">Agregar nuevo manual</a>
+                    
+                    <table class="table" id="Listamanuales">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if datos %}
+                                {% for manual in datos %}
+                                    <tr>
+                                        <td>{{manual.tipo}}</td>
+                                        <td>{{manual.marca}}</td>
+                                        <td>{{manual.modelo}}</td>
+                                        <td>
+                                            <button>
+                                                <a href="{% url 'Manuales descarga' manual.id %}" download> Descargar</a>
+                                            </button>
+                                            {% if user.is_authenticated %}
+                                            <button>
+                                                <a href="{% url 'Manuales modificacion' manual.id %}">Editar</a>
+                                            </button>
+                                            <button>
+                                                <a href="{% url 'Manuales borrar' manual.id %}">Eliminar</a>
+                                            </button>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}  
+                                <tr><td>No hay manuales disponibles</td></tr>
+                            {% endif %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

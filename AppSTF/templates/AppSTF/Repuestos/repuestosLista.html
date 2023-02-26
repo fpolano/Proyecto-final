@@ -1,0 +1,73 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+
+                    <h2> Repuestos disponibles </h2>
+
+                    <a href="{% url 'Repuestos alta' %}">Agregar nuevo respuesto</a>
+                    
+                    <table class="table" id="ListaRepuestos">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if datos %}
+                                {% for repuesto in datos %}
+                                    <tr>
+                                        <td>{{repuesto.nombre}}</td>
+                                        <td>{{repuesto.marca}}</td>
+                                        <td>{{repuesto.modelo}}</td>
+                                        <td>{{repuesto.precio}}</td>
+                                        <td>{{repuesto.stock}}</td>
+                                        <td>
+                                            <button>
+                                                <a href="{% url 'Repuestos detalle' repuesto.id %}">Detalles</a>
+                                            </button>
+                                            {% if user.is_authenticated %}
+                                            <button>
+                                                <a href="{% url 'Repuestos modificacion' repuesto.id %}">Editar</a>
+                                            </button>
+                                            <button>
+                                                <a href="{% url 'Repuestos borrar' repuesto.id %}">Eliminar</a>
+                                            </button>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}  
+                                <tr><td>No hay repuestos disponibles</td></tr>
+                            {% endif %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

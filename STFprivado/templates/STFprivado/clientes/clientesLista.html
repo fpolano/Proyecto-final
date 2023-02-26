@@ -1,0 +1,72 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+
+                    <h2> Registro de clientes </h2>
+
+                    <a href="{% url 'Clientes alta' %}">Agregar nuevo cliente</a>
+                    
+                    <table class="table" id="ListaClientes">
+                        <thead>
+                            <tr>
+                                <th>Razón social</th>
+                                <th>Cuit</th>
+                                <th>Correo electrónico</th>
+                                <th>Telefono</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if datos %}
+                                {% for cliente in datos %}
+                                    <tr>
+                                        <td>{{cliente.razonSocial}}</td>
+                                        <td>{{cliente.cuit}}</td>
+                                        <td>{{cliente.email}}</td>
+                                        <td>{{cliente.telefono}}</td>
+                                        <td>
+                                            <button>
+                                                <a href="{% url 'Clientes detalle' cliente.id %}">Detalles</a>
+                                            </button>
+                                            {% if user.is_authenticated %}
+                                            <button>
+                                                <a href="{% url 'Clientes modificacion' cliente.id %}">Editar</a>
+                                            </button>
+                                            <button>
+                                                <a href="{% url 'Clientes borrar' cliente.id %}">Eliminar</a>
+                                            </button>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}  
+                                <tr><td>No hay clientes disponibles</td></tr>
+                            {% endif %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Razón social</th>
+                                <th>Cuit</th>
+                                <th>Correo electrónico</th>
+                                <th>Telefono</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                <button>
+                    <a href="{% url 'Taller' %}">Volver al taller</a>
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

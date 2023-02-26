@@ -1,0 +1,75 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+
+                    <h2> Ordenes de reparación </h2>
+
+                    <a href="{% url 'Ordenes alta' %}">Nueva reparación</a>
+                    
+                    <table class="table" id="Listaordenes">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Estado</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Presupuesto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if datos %}
+                                {% for orden in datos %}
+                                    <tr>
+                                        <td>{{orden.cliente}}</td>
+                                        <td>{{orden.estado}}</td>
+                                        <td>{{orden.marca}}</td>
+                                        <td>{{orden.modelo}}</td>
+                                        <td>{{orden.presupuesto}}</td>
+                                        <td>
+                                            <button>
+                                                <a href="{% url 'Ordenes detalle' orden.id %}">Detalles</a>
+                                            </button>
+                                            {% if user.is_authenticated %}
+                                            <button>
+                                                <a href="{% url 'Ordenes modificacion' orden.id %}">Editar</a>
+                                            </button>
+                                            <button>
+                                                <a href="{% url 'Ordenes borrar' orden.id %}">Eliminar</a>
+                                            </button>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}  
+                                <tr><td>No hay ordenes disponibles</td></tr>
+                            {% endif %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Estado</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Presupuesto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                <button>
+                    <a href="{% url 'Taller' %}">Volver al taller</a>
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

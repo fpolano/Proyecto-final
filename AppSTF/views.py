@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.http import FileResponse
 
 from AppSTF.forms import *
 from AppSTF.models import *
@@ -27,7 +28,6 @@ def maquinasLista(request):
 
 def maquinasDetalle(request,maquinaId):
     maquina = Maquinas.objects.filter(id=maquinaId)
-    print(maquina)
     return render(request, "AppSTF/Maquinas/maquinasDetalle.html",{'datos':maquina})
 
 @login_required
@@ -107,6 +107,13 @@ def maquinasBaja(request,maquinaId):
     return render(request, "AppSTF/Maquinas/maquinasBorrar.html",contexto)    
 
 #################### CRUD Repuestos a la venta ####################
+def repuestosLista(request):
+    repuestos = Repuestos.objects.all()
+    return render(request, "AppSTF/Repuestos/repuestosLista.html",{'datos':repuestos})
+
+def repuestosDetalle(request,repuId):
+    repuesto = Repuestos.objects.filter(id=repuId)
+    return render(request, "AppSTF/Repuestos/repuestosDetalle.html",{'datos':repuesto})
 
 @login_required
 def repuestosAlta(request):
@@ -125,13 +132,66 @@ def repuestosAlta(request):
                             foto = informacion["foto"],
                             )
             repu.save()
-            return render(request, "AppSTF/index.html")
+
+            contexto = {'datos':Repuestos.objects.all()}
+            return render(request, "AppSTF/Repuestos/repuestosLista.html",contexto)
     else:
         miFormulario = RepuestosFormulario()
  
     return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario,'titulo':"Nuevo Repuesto"})
 
+@login_required
+def repuestosModificacion(request,repuId):
+    repuEditar = Repuestos.objects.get(id=repuId)
+
+    if request.method == "POST":
+ 
+        miFormulario = RepuestosFormulario(request.POST, request.FILES)
+ 
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+
+            repuEditar.nombre = informacion["nombre"]
+            repuEditar.marca = informacion["marca"]
+            repuEditar.modelo = informacion["modelo"]
+            repuEditar.precio = informacion["precio"]
+            repuEditar.stock = informacion["stock"]
+            repuEditar.foto = informacion["foto"]
+            
+            repuEditar.save()
+
+            contexto = {'datos':Repuestos.objects.all()}
+            return render(request, "AppSTF/Repuestos/repuestosLista.html",contexto)
+    else:
+        miFormulario = RepuestosFormulario(initial={"nombre":repuEditar.nombre,
+                                                    "marca":repuEditar.marca,
+                                                    "modelo":repuEditar.modelo,
+                                                    "precio":repuEditar.precio,
+                                                    "stock":repuEditar.stock,
+                                                    "foto":repuEditar.foto,})
+ 
+    return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario,'titulo':"Editar Repuesto"})    
+
+@login_required
+def repuestosBaja(request,repuId):
+    repuBorrar = Repuestos.objects.get(id=repuId)
+    if request.method == "POST":
+        repuBorrar.delete()
+        contexto = {'datos':Repuestos.objects.all()}
+        return render(request, "AppSTF/Repuestos/repuestosLista.html",contexto)
+    else:
+        contexto = {'datos':repuBorrar,'titulo':"Eliminar:"}
+
+    return render(request, "AppSTF/Repuestos/repuestosBorrar.html",contexto) 
+
 #################### CRUD Biblioteca de Manuales ####################
+def manualesLista(request):
+    manuales = Manuales.objects.all()
+    return render(request, "AppSTF/Manuales/manualesLista.html",{'datos':manuales})
+
+def manualesDescarga(request,manualId):
+    manual = Manuales.objects.get(id=manualId)
+    return FileResponse(manual.archivo)
 
 @login_required
 def manualesAlta(request):
@@ -148,12 +208,53 @@ def manualesAlta(request):
                             archivo = informacion["archivo"],
                             )
             manual.save()
-            return render(request, "AppSTF/index.html")
+
+            contexto = {'datos':Manuales.objects.all()}
+            return render(request, "AppSTF/manuales/manualesLista.html",contexto)
     else:
         miFormulario = ManualesFormulario()
  
     return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario,'titulo':"Nuevo Manual"})
 
+@login_required
+def manualesModificacion(request,manualId):
+    manualEditar = Manuales.objects.get(id=manualId)
+
+    if request.method == "POST":
+ 
+        miFormulario = ManualesFormulario(request.POST, request.FILES)
+ 
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+
+            mmanualEditar.tipo = informacion["tipo"]
+            manualEditar.marca = informacion["marca"]
+            manualEditar.modelo = informacion["modelo"]
+            manualEditar.archivo = informacion["archivo"]
+            
+            manualEditar.save()
+
+            contexto = {'datos':Manuales.objects.all()}
+            return render(request, "AppSTF/Manuales/manualesLista.html",contexto)
+    else:
+        miFormulario = MaquinasFormulario(initial={ "tipo":manualEditar.tipo,
+                                                    "marca":mmanualEditar.marca,
+                                                    "modelo":maquinaEditar.modelo,
+                                                    "archivo":maquinaEditar.archivo,})
+ 
+    return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario,'titulo':"Editar Máquina"})    
+
+@login_required
+def manualesBaja(request,manualId):
+    manualBorrar = Manuales.objects.get(id=manualId)
+    if request.method == "POST":
+        manualBorrar.delete()
+        contexto = {'datos':Manuales.objects.all()}
+        return render(request, "AppSTF/Manuales/manualesLista.html",contexto)
+    else:
+        contexto = {'datos':manualBorrar,'titulo':"Eliminar:"}
+
+    return render(request, "AppSTF/Manuales/manualesBorrar.html",contexto) 
 
 ################### Consulta reparaciones (accesible publicamente) #################
 def buscarOrden(request):
@@ -163,12 +264,9 @@ def resultadoOrden(request):
     if request.GET["cliente"]:
         cliente = request.GET["cliente"]
         reparaciones = Ordenes.objects.filter(cliente__icontains=cliente)
-        return render(request,"AppSTF/buscarorden.html",{"ordCliente":reparaciones})
+        return render(request,"AppSTF/buscarorden.html",{"ordCliente":reparaciones,"respuesta":"No se encontraron ordenes"})
     elif request.GET["numero"]:
         numero = int(request.GET["numero"])
         reparaciones = Ordenes.objects.filter(id=numero)
-        return render(request,"AppSTF/buscarorden.html",{"ordCliente":reparaciones})
-    else:
-        respuesta = "No se encontraron ordenes"
-        return render(request,"AppSTF/buscarorden.html",{"respuesta":respuesta})
+        return render(request,"AppSTF/buscarorden.html",{"ordCliente":reparaciones,"respuesta":"No se encontraron ordenes"})
     

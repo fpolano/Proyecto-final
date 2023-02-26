@@ -10,7 +10,7 @@ class Maquinas(models.Model):
     desc = models.TextField(max_length=400)
     precio = models.FloatField()
     stock = models.SmallIntegerField()
-    foto = models.ImageField(upload_to='maquinas', null = True, blank = True, default='settings.MEDIA_ROOT/maquinas/generic_equipo.png')
+    foto = models.ImageField(upload_to='maquinas', default='settings.MEDIA_ROOT/maquinas/generic_equipo.png')
     
     def __str__(self):
         return f"{self.nombre} Marca:{self.marca} Modelo:{self.modelo} precio: ${self.precio}"
@@ -22,7 +22,7 @@ class Repuestos(models.Model):
     modelo = models.CharField(max_length=60)
     precio = models.FloatField()
     stock = models.SmallIntegerField()
-    foto = models.ImageField(upload_to='repuestos', null = True, blank = True, default='settings.MEDIA_ROOT/repuestos/generic_repuesto.jfif')
+    foto = models.ImageField(upload_to='repuestos', default='settings.MEDIA_ROOT/repuestos/generic_repuesto.jfif')
         
     def __str__(self):
         return f"{self.nombre} Marca:{self.marca} Modelo:{self.modelo} Precio: ${self.precio}"    
@@ -32,7 +32,7 @@ class Manuales(models.Model):
     tipo = models.CharField(max_length=60)
     marca = models.CharField(max_length=60)
     modelo = models.CharField(max_length=60)
-    archivo = models.FileField(upload_to='manuales', blank = True, null = True)
+    archivo = models.FileField(upload_to='manuales')
 
     def __str__(self):
         return f"Manual de {self.tipo} Marca:{self.marca} Modelo:{self.modelo}"   

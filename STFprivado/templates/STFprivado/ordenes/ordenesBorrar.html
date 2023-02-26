@@ -1,0 +1,29 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block titulos %}
+<title>{{titulo}} {{datos.tipo}}</title>
+{% endblock %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+
+                    <form  action="" method="POST" >{% csrf_token %}
+                        ¿Estas seguro que deseas eliminar la orden N°{{datos.id}} de {{datos.cliente}} por {{datos.tipo}} ? 
+                        <input type="submit" value="Si">
+                    </form>
+                    <a href="{% url 'Ordenes lista' %}">
+                        <button>No</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -32,10 +32,21 @@ Mejoras deseadas pára proximas versiones:
 
 ## Versión 0.2:
 Se incorporó:
-    -Vistas de alta, baja, modificación y lista para la base de datos Maquinas
+    - Vistas de alta, baja, modificación y lista para la base de datos Maquinas
+    - Copyright con datos del desarrollador (yo XD)
 
 ## Versión 0.3:
 Se incorporó:
     - Funcionalidad completa de la vista detalle de máquinas incluido mostrar una imagen del producto
     - CRUD de usuarios
-    - Pagina de inicio interna
+    - Pagina de inicio interna cuando se accede con usuario para la navegación de clientes y ordenes de trabajo
+
+## Versión 0.4:
+Se incoroporó:
+    - Vistas de alta, baja, modificación, detalle y lista para todas las bases de datos (repuestos, ordenes de reparación, clientes y  manuales-descarga en lugar de detalle-)
+    - Se cporrigió problema con vista de registro de nuecvo usuario
+
+Mejoras futuras deseables:
+    - Validación de datos de alta y modificación para todas las tablas
+    - Roles de usuarios para controlar nivel de privilegios del CRUD. Validar creación por email.
+    - Mejoras estéticas en css y html

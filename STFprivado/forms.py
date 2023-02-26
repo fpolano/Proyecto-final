@@ -13,6 +13,17 @@ class UsuarioFormulario(UserCreationForm):
 
     class Meta:
         model = User
+        fields = ['username','nombre', 'apellido', 'email', 'password1', 'password2'] 
+
+class UsuarioFormularioActualizar(UserCreationForm):
+    nombre = forms.CharField(max_length=50)
+    apellido = forms.CharField(max_length=50)
+    email = forms.EmailField()
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Repetir Contraseña", widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
         fields = ['nombre', 'apellido', 'email', 'password1', 'password2'] 
 
 class OrdenesFormulario(forms.ModelForm):

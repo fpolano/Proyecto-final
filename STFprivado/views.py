@@ -48,7 +48,7 @@ def ingresar(request):
 def editarUsuario(request):
     usuario = request.user #usuario activo (el que ha iniciado sesión)
     if request.method == "POST":    #al presionar el botón
-        miFormulario = UsuarioFormulario(request.POST) #el formulario es el del usuario
+        miFormulario = UsuarioFormularioActualizar(request.POST) #el formulario es el del usuario
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data     #info en modo diccionario
 
@@ -67,6 +67,14 @@ def editarUsuario(request):
     return render(request, "STFprivado/Autenticar/editarUsuario.html",{'miFormulario':miFormulario})
 
 #################### CRUD Ordenes de reparación ####################
+def ordenesLista(request):
+    ordenes = Ordenes.objects.all()
+    return render(request, "STFprivado/ordenes/ordenesLista.html",{'datos':ordenes})
+
+def ordenesDetalle(request,ordenId):
+    orden = Ordenes.objects.filter(id=ordenId)
+    return render(request, "STFprivado/ordenes/ordenesDetalle.html",{'datos':orden})
+
 @login_required
 def ordenesAlta(request):
     if request.method == "POST": #indica que se hizo click a enviar
@@ -85,13 +93,70 @@ def ordenesAlta(request):
                             presupuesto = informacion["presupuesto"],
                             )
             orden.save()
-            return render(request, "AppSTF/index.html")
+
+            contexto = {'datos':Ordenes.objects.all()}
+            return render(request, "STFprivado/ordenes/ordenesLista.html",contexto)
     else:
         miFormulario = OrdenesFormulario() # Esto es para que la primera vez se muestre el formulario vacio
  
-    return render(request, "AppSTF/carga.html", {"miFormulario": miFormulario}) # Envía el formulario a la plantilla
+    return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario}) # Envía el formulario a la plantilla
+
+@login_required
+def ordenesModificacion(request,ordenId):
+    ordenEditar = Ordenes.objects.get(id=ordenId)
+
+    if request.method == "POST":
+ 
+        miFormulario = OrdenesFormulario(request.POST, request.FILES)
+ 
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+
+            ordenEditar.estado = informacion["estado"],
+            ordenEditar.cliente = informacion["cliente"],
+            ordenEditar.tipo = informacion["tipo"],
+            ordenEditar.marca =informacion["marca"],
+            ordenEditar.modelo = informacion["modelo"],
+            ordenEditar.obs = informacion["obs"],
+            ordenEditar.presupuesto = informacion["presupuesto"]
+            
+            ordenEditar.save()
+
+            contexto = {'datos':Ordenes.objects.all()}
+            return render(request, "STFprivado/ordenes/ordenesLista.html",contexto)
+    else:
+        miFormulario = OrdenesFormulario(initial={ "estado":ordenEditar.estado,
+                                                    "cliente":ordenEditar.cliente,
+                                                    "tipo":ordenEditar.tipo,
+                                                   "marca":ordenEditar.marca,
+                                                    "modelo":ordenEditar.modelo ,
+                                                    "obs":ordenEditar.obs,
+                                                    "presupuesto":ordenEditar.presupuesto,})
+
+    return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario,'titulo':"Editar Orden"})    
+
+@login_required
+def ordenesBaja(request,ordenId):
+    ordenBorrar = Ordenes.objects.get(id=ordenId)
+    if request.method == "POST":
+        ordenBorrar.delete()
+
+        contexto = {'datos':Ordenes.objects.all()}
+        return render(request, "STFprivado/ordenes/ordenesLista.html",contexto)
+    else:
+        contexto = {'datos':ordenBorrar,'titulo':"Eliminar:"}
+
+    return render(request, "STFprivado/ordenes/ordenesBorrar.html",contexto) 
 
 #################### CRUD Base de datos de clientes ####################
+def clientesLista(request):
+    clientes = Clientes.objects.all()
+    return render(request, "STFprivado/clientes/clientesLista.html",{'datos':clientes})
+
+def clientesDetalle(request,clienteId):
+    cliente = Clientes.objects.filter(id=clienteId)
+    return render(request, "STFprivado/clientes/clientesDetalle.html",{'datos':cliente})
+
 @login_required
 def clientesAlta(request):
     if request.method == "POST":
@@ -109,8 +174,54 @@ def clientesAlta(request):
                                 direccion= informacion["direccion"],
                                 )
             cliente.save()
-            return render(request, "AppSTF/index.html")
+
+            contexto = {'datos':Clientes.objects.all()}
+            return render(request, "STFprivado/clientes/clientesLista.html",contexto)
     else:
         miFormulario = ClientesFormulario()
  
-    return render(request, "AppSTF/carga.html", {"miFormulario": miFormulario})
+    return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario})
+
+@login_required
+def clientesModificacion(request,clienteId):
+    clienteEditar = Clientes.objects.get(id=clienteId)
+
+    if request.method == "POST":
+ 
+        miFormulario = clientesFormulario(request.POST, request.FILES)
+ 
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+
+            clienteEditar.razonSocial= informacion["razonSocial"],
+            clienteEditar.cuit = informacion["cuit"],
+            clienteEditar.contacto = informacion["contacto"],
+            clienteEditar.email =informacion["email"],
+            clienteEditar.telefono = informacion["telefono"],
+            clienteEditar.direccion= informacion["direccion"],
+            
+            clienteEditar.save()
+
+            contexto = {'datos':clientes.objects.all()}
+            return render(request, "STFprivado/clientes/clientesLista.html",contexto)
+    else:
+        miFormulario = MaquinasFormulario(initial={ "razonSocial":clienteEditar.razonSocial,
+                                                    "cuit":clienteEditar.cuit,
+                                                    "contacto":clienteEditar.contacto,
+                                                    "email":clienteEditar.email,
+                                                    "telefono":clienteEditar.telefono,
+                                                    "direccion":clienteEditar.direccion,})
+ 
+    return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario,'titulo':"Editar Máquina"})    
+
+@login_required
+def clientesBaja(request,clienteId):
+    clienteBorrar = Clientes.objects.get(id=clienteId)
+    if request.method == "POST":
+        clienteBorrar.delete()
+        contexto = {'datos':clientes.objects.all()}
+        return render(request, "STFprivado/clientes/clientesLista.html",contexto)
+    else:
+        contexto = {'datos':clienteBorrar,'titulo':"Eliminar:"}
+
+    return render(request, "STFprivado/clientes/clientesBorrar.html",contexto) 

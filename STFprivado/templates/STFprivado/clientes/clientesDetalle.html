@@ -1,0 +1,39 @@
+{% extends 'AppSTF/padre.html' %}
+{% load static %}
+
+{% block cuerpo %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    {% if datos %}
+                        {% for m in datos %}
+                            <h2> {{m.razonSocial}} </h2>
+                            <p> Cuit: {{m.cuit}}</p> 
+                            <p> Contacto: {{m.contacto}}</p> 
+                            <p> Correo electrónico: {{m.email}}</p>
+                            <p> Telefono: {{m.telefono}}</p> 
+                            <p> Dirección: {{m.direccion}}</p> 
+                            <button>
+                                <a href="{% url 'Clientes lista' %}">Volver</a>
+                            </button>
+                            {% if user.is_authenticated %}
+                                <button>
+                                    <a href="{% url 'Clientes modificacion' m.id %}">Editar</a>
+                                </button>
+                                <button>
+                                    <a href="{% url 'Clientes borrar' m.id %}">Eliminar</a>
+                                </button>
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
