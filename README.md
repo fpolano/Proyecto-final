@@ -1,13 +1,6 @@
 # Proyecto-final
 Proyecto final Curso Python CoderHouse. Página web con Django
 
---------------------------------------------------------------------------------------------
-Del readme de Tercera-pre-entrega
-Repositorio del proyecto Django correspondiente a la tercera preentrega del curso de Python de CoderHouse
-
-Proyecto en django cuyo objetivo final es generar una web que permita administrar las reparaciones, venta de máquinas y respuestos, manuales y base de datos de clientes de un taller de reparación de máquinas herramientas.
----------------------------------------------------------------------------------------------
-
 ## Versión 0.1:
 --------------------------------------------------------------------------------------------
 Del readme de Tercera-pre-entrega
