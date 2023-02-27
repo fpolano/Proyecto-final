@@ -48,5 +48,11 @@ Se incoroporó:
 
 Mejoras futuras deseables:
     - Validación de datos de alta y modificación para todas las tablas
-    - Roles de usuarios para controlar nivel de privilegios del CRUD. Validar creación por email.
+    - Roles de usuarios para controlar nivel de privilegios/permisos del CRUD. Validar creación por email.
     - Mejoras estéticas en css y html
+    - Enlazar tabla de reparaciones con clientes
+
+## Versión 0.5:
+Se incoroporó:
+    - Casos de prueba
+    - Video explicativo

@@ -76,7 +76,8 @@ def maquinasModificacion(request,maquinaId):
             maquinaEditar.desc = informacion["desc"]
             maquinaEditar.precio = informacion["precio"]
             maquinaEditar.stock = informacion["stock"]
-            maquinaEditar.foto = informacion["foto"]
+            if len(request.FILES) != 0:
+                maquinaEditar.foto = informacion["foto"]
             
             maquinaEditar.save()
 
@@ -156,7 +157,8 @@ def repuestosModificacion(request,repuId):
             repuEditar.modelo = informacion["modelo"]
             repuEditar.precio = informacion["precio"]
             repuEditar.stock = informacion["stock"]
-            repuEditar.foto = informacion["foto"]
+            if len(request.FILES) != 0:
+                repuEditar.foto = informacion["foto"]
             
             repuEditar.save()
 
@@ -226,23 +228,25 @@ def manualesModificacion(request,manualId):
  
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
+            print(informacion)
 
-            mmanualEditar.tipo = informacion["tipo"]
+            manualEditar.tipo = informacion["tipo"]
             manualEditar.marca = informacion["marca"]
             manualEditar.modelo = informacion["modelo"]
-            manualEditar.archivo = informacion["archivo"]
-            
+            if len(request.FILES) != 0:
+                manualEditar.archivo = informacion["archivo"]
+                        
             manualEditar.save()
 
             contexto = {'datos':Manuales.objects.all()}
             return render(request, "AppSTF/Manuales/manualesLista.html",contexto)
     else:
-        miFormulario = MaquinasFormulario(initial={ "tipo":manualEditar.tipo,
-                                                    "marca":mmanualEditar.marca,
-                                                    "modelo":maquinaEditar.modelo,
-                                                    "archivo":maquinaEditar.archivo,})
+        miFormulario = ManualesFormulario(initial={ "tipo":manualEditar.tipo,
+                                                    "marca":manualEditar.marca,
+                                                    "modelo":manualEditar.modelo,
+                                                    "archivo":manualEditar.archivo,})
  
-    return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario,'titulo':"Editar Máquina"})    
+    return render(request, "AppSTF/cargaFormularios.html", {"miFormulario": miFormulario,'titulo':"Editar Manual"})    
 
 @login_required
 def manualesBaja(request,manualId):

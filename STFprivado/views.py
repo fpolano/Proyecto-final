@@ -54,7 +54,7 @@ def editarUsuario(request):
 
             #actualizar la info del usuario activo
             usuario.first_name = informacion['nombre']
-            usaurio.last_name = informacion['apellido']
+            usuario.last_name = informacion['apellido']
             usuario.email = informacion['email']
             usuario.password1 = informacion['password1']
             usuario.password2 = informacion['password1']
@@ -112,12 +112,12 @@ def ordenesModificacion(request,ordenId):
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
 
-            ordenEditar.estado = informacion["estado"],
-            ordenEditar.cliente = informacion["cliente"],
-            ordenEditar.tipo = informacion["tipo"],
-            ordenEditar.marca =informacion["marca"],
-            ordenEditar.modelo = informacion["modelo"],
-            ordenEditar.obs = informacion["obs"],
+            ordenEditar.estado = informacion["estado"]
+            ordenEditar.cliente = informacion["cliente"]
+            ordenEditar.tipo = informacion["tipo"]
+            ordenEditar.marca =informacion["marca"]
+            ordenEditar.modelo = informacion["modelo"]
+            ordenEditar.obs = informacion["obs"]
             ordenEditar.presupuesto = informacion["presupuesto"]
             
             ordenEditar.save()
@@ -129,7 +129,7 @@ def ordenesModificacion(request,ordenId):
                                                     "cliente":ordenEditar.cliente,
                                                     "tipo":ordenEditar.tipo,
                                                    "marca":ordenEditar.marca,
-                                                    "modelo":ordenEditar.modelo ,
+                                                    "modelo":ordenEditar.modelo,
                                                     "obs":ordenEditar.obs,
                                                     "presupuesto":ordenEditar.presupuesto,})
 
@@ -188,24 +188,24 @@ def clientesModificacion(request,clienteId):
 
     if request.method == "POST":
  
-        miFormulario = clientesFormulario(request.POST, request.FILES)
+        miFormulario = ClientesFormulario(request.POST, request.FILES)
  
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
 
-            clienteEditar.razonSocial= informacion["razonSocial"],
-            clienteEditar.cuit = informacion["cuit"],
-            clienteEditar.contacto = informacion["contacto"],
-            clienteEditar.email =informacion["email"],
-            clienteEditar.telefono = informacion["telefono"],
-            clienteEditar.direccion= informacion["direccion"],
+            clienteEditar.razonSocial= informacion["razonSocial"]
+            clienteEditar.cuit = informacion["cuit"]
+            clienteEditar.contacto = informacion["contacto"]
+            clienteEditar.email =informacion["email"]
+            clienteEditar.telefono = informacion["telefono"]
+            clienteEditar.direccion= informacion["direccion"]
             
             clienteEditar.save()
 
-            contexto = {'datos':clientes.objects.all()}
+            contexto = {'datos':Clientes.objects.all()}
             return render(request, "STFprivado/clientes/clientesLista.html",contexto)
     else:
-        miFormulario = MaquinasFormulario(initial={ "razonSocial":clienteEditar.razonSocial,
+        miFormulario = ClientesFormulario(initial={ "razonSocial":clienteEditar.razonSocial,
                                                     "cuit":clienteEditar.cuit,
                                                     "contacto":clienteEditar.contacto,
                                                     "email":clienteEditar.email,
@@ -219,7 +219,7 @@ def clientesBaja(request,clienteId):
     clienteBorrar = Clientes.objects.get(id=clienteId)
     if request.method == "POST":
         clienteBorrar.delete()
-        contexto = {'datos':clientes.objects.all()}
+        contexto = {'datos':Clientes.objects.all()}
         return render(request, "STFprivado/clientes/clientesLista.html",contexto)
     else:
         contexto = {'datos':clienteBorrar,'titulo':"Eliminar:"}

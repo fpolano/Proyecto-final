@@ -11,7 +11,7 @@
 
                     <h2> Ordenes de reparación </h2>
 
-                    <a href="{% url 'Ordenes alta' %}">Nueva reparación</a>
+                    <a href="{% url 'Reparaciones alta' %}">Nueva reparación</a>
                     
                     <table class="table" id="Listaordenes">
                         <thead>
@@ -35,14 +35,14 @@
                                         <td>{{orden.presupuesto}}</td>
                                         <td>
                                             <button>
-                                                <a href="{% url 'Ordenes detalle' orden.id %}">Detalles</a>
+                                                <a href="{% url 'Reparaciones detalle' orden.id %}">Detalles</a>
                                             </button>
                                             {% if user.is_authenticated %}
                                             <button>
-                                                <a href="{% url 'Ordenes modificacion' orden.id %}">Editar</a>
+                                                <a href="{% url 'Reparaciones modificacion' orden.id %}">Editar</a>
                                             </button>
                                             <button>
-                                                <a href="{% url 'Ordenes borrar' orden.id %}">Eliminar</a>
+                                                <a href="{% url 'Reparaciones borrar' orden.id %}">Eliminar</a>
                                             </button>
                                             {% endif %}
                                         </td>

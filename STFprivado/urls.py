@@ -15,8 +15,8 @@ urlpatterns = [
     path('clientes', views.clientesLista, name = "Clientes lista"),   
     path('clientes/detalle/<clienteId>', views.clientesDetalle, name="Clientes detalle"),
     path('clientes/alta', views.clientesAlta, name="Clientes alta"),
-    path('clientes/modificacion/<repuestoId>', views.clientesModificacion, name="Clientes modificacion"),
-    path('clientes/borrar/<repuestoId>', views.clientesBaja, name="Clientes borrar"),
+    path('clientes/modificacion/<clienteId>', views.clientesModificacion, name="Clientes modificacion"),
+    path('clientes/borrar/<clienteId>', views.clientesBaja, name="Clientes borrar"),
 
     # CRUD Ordenes de reparación #
     path('reparaciones', views.ordenesLista, name = "Reparaciones lista"),

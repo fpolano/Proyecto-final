@@ -9,22 +9,22 @@
             <div class="col-xl-9 mx-auto">
                 <div class="cta-inner bg-faded text-center rounded">
                     {% if datos %}
-                        {% for m in datos %}
-                            <h2> {{m.razonSocial}} </h2>
-                            <p> Cuit: {{m.cuit}}</p> 
-                            <p> Contacto: {{m.contacto}}</p> 
-                            <p> Correo electrónico: {{m.email}}</p>
-                            <p> Telefono: {{m.telefono}}</p> 
-                            <p> Dirección: {{m.direccion}}</p> 
+                        {% for cliente in datos %}
+                            <h2> {{cliente.razonSocial}} </h2>
+                            <p> Cuit: {{cliente.cuit}}</p> 
+                            <p> Contacto: {{cliente.contacto}}</p> 
+                            <p> Correo electrónico: {{cliente.email}}</p>
+                            <p> Telefono: {{cliente.telefono}}</p> 
+                            <p> Dirección: {{cliente.direccion}}</p> 
                             <button>
                                 <a href="{% url 'Clientes lista' %}">Volver</a>
                             </button>
                             {% if user.is_authenticated %}
                                 <button>
-                                    <a href="{% url 'Clientes modificacion' m.id %}">Editar</a>
+                                    <a href="{% url 'Clientes modificacion' cliente.id %}">Editar</a>
                                 </button>
                                 <button>
-                                    <a href="{% url 'Clientes borrar' m.id %}">Eliminar</a>
+                                    <a href="{% url 'Clientes borrar' cliente.id %}">Eliminar</a>
                                 </button>
                                 </p>
                             {% endif %}
