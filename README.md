@@ -21,8 +21,6 @@ Mejoras deseadas pára proximas versiones:
 - Agregar a las tablas productos y repuestos un campo imagen que muestr el elementoi físico.
 - Agregar a la tabla manuales un campo archivo para almacenar los mismos y permitir su descarga.
 
--------------------------------------------
-
 ## Versión 0.2:
 Se incorporó:
 - Vistas de alta, baja, modificación y lista para la base de datos Maquinas
