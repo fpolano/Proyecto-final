@@ -25,8 +25,8 @@ Mejoras deseadas pára proximas versiones:
 
 ## Versión 0.2:
 Se incorporó:
-    - Vistas de alta, baja, modificación y lista para la base de datos Maquinas
-    - Copyright con datos del desarrollador (yo XD)
+- Vistas de alta, baja, modificación y lista para la base de datos Maquinas
+- Copyright con datos del desarrollador (yo XD)
 
 ## Versión 0.3:
 Se incorporó:
